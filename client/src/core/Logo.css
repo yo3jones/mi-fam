@@ -1,0 +1,21 @@
+#Logo {
+  width: 70px;
+  height: 70px;
+}
+
+#Logo-face-1 {
+  fill: rgb(0, 125, 81);
+}
+
+
+#Logo-face-2 {
+  fill: rgb(2, 93, 86);
+}
+
+#Logo-face-3 {
+  fill: rgb(28, 186, 127);
+}
+
+#Logo-face-4 {
+  fill: rgb(55, 240, 185);
+}
