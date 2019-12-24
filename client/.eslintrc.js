@@ -14,6 +14,12 @@ module.exports = {
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
+    describe: 'readonly',
+    beforeEach: 'readonly',
+    beforeAll: 'readonly',
+    it: 'readonly',
+    expect: 'readonly',
+    jest: 'readonly',
   },
   parserOptions: {
     ecmaFeatures: {
@@ -26,5 +32,7 @@ module.exports = {
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'prettier/prettier': 'error',
+    'react/display-name': ['off'],
+    'react/prop-types': 0,
   },
 };

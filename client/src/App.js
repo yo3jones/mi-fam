@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { MdDashboard, MdSettings } from 'react-icons/md';
-import IconButton from './md/IconButton';
+import LoginPage from './LoginPage';
 import RailNavigation from './md/RailNavigation';
 import { withoutTitle as Logo } from './core/Logo';
 import './App.css';
@@ -12,7 +12,7 @@ const items = {
     label: 'Overview',
     icon: MdDashboard,
     route: '/overview',
-    render: () => <IconButton icon={MdDashboard} />,
+    render: () => <h1>Dashboard</h1>,
   },
   settings: {
     id: 'settings',
@@ -26,6 +26,7 @@ const items = {
 const defaultItem = items.overview;
 
 export default () => {
+  const hasSession = false;
   const [selectedItem] = Object.values(items)
     .map(item => [item, useRouteMatch(item.route)])
     .find(([, match]) => match) || [defaultItem, null];
@@ -35,7 +36,7 @@ export default () => {
     [selectedItem.id]: { ...selectedItem, selected: true },
   };
 
-  return (
+  return hasSession ? (
     <div className="App">
       <div className="rail">
         <Logo className="App-logo" />
@@ -43,5 +44,7 @@ export default () => {
       </div>
       {selectedItem.render()}
     </div>
+  ) : (
+    <LoginPage />
   );
 };

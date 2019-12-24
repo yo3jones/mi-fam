@@ -15,7 +15,6 @@
 
 .RailNavigation-item {
   position: relative;
-  overflow: hidden;
   border-radius: 30%;
 
   height: 43px;

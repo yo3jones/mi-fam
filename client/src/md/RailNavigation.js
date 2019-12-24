@@ -15,9 +15,13 @@ const Item = ({ item }) => {
   useEffect(() => {
     const { current: listItem } = listItemRef;
 
+    // const _ok = 'something';
+    //
+    // console.log(_ok);
+
     forceStyleRecalc(listItem);
 
-    animating && listItem.classList.add('animate');
+    if (animating) listItem.classList.add('animate');
 
     setAnimating(false);
   });
@@ -46,7 +50,7 @@ export default ({ className = '', items = [] }) => {
   return (
     <ul className={`${className} RailNavigation`}>
       {items.map(item => (
-        <Item item={item} />
+        <Item key={item.id} item={item} />
       ))}
     </ul>
   );

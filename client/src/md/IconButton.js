@@ -1,23 +1,28 @@
 import React, { useRef } from 'react';
 import './IconButton.css';
 
-const _forceRedraw = ({ current: el }) => el.offsetHeight;
+const forceRedraw = ({ current: el }) => el.offsetHeight;
 
 export default ({ icon: Icon }) => {
-  const _button = useRef();
-  const _handleClick = () => {
+  const button = useRef();
+  const handleClick = () => {
     const {
       current: { classList },
-    } = _button;
+    } = button;
 
     classList.remove('animate');
 
-    _forceRedraw(_button);
+    forceRedraw(button);
 
     classList.add('animate');
   };
   return (
-    <button ref={_button} className="MdIconButton" onClick={_handleClick}>
+    <button
+      ref={button}
+      className="MdIconButton"
+      onClick={handleClick}
+      type="button"
+    >
       <Icon />
     </button>
   );

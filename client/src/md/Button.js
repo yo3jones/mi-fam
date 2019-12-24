@@ -1,19 +1,28 @@
 import React, { useRef } from 'react';
 import './Button.css';
 
-export default ({ handleClick, children }) => {
-  const _button = useRef();
-  const _span = useRef();
+export default ({ className, label, handleClick }) => {
+  const buttonRef = useRef();
+  const rippleRef = useRef();
 
-  const _handleClick = e => {
-    _span.current.classList.remove('animate');
-    const x = e.pageX - _button.current.offsetLeft;
-    const y = e.pageY - _button.current.offsetTop;
+  const handleButtonClick = e => {
+    const { current: button } = buttonRef;
+    const { current: ripple } = rippleRef;
 
-    _span.current.style.left = `${x}px`;
-    _span.current.style.top = `${y}px`;
+    ripple.classList.remove('animate');
 
-    _span.current.classList.add('animate');
+    const dimension = Math.min(button.offsetWidth, button.offsetHeight);
+
+    ripple.style.width = `${dimension}px`;
+    ripple.style.height = `${dimension}px`;
+
+    const x = e.pageX - button.offsetLeft - dimension / 2;
+    const y = e.pageY - button.offsetTop - dimension / 2;
+
+    ripple.style.left = `${x}px`;
+    ripple.style.top = `${y}px`;
+
+    ripple.classList.add('animate');
 
     if (handleClick) {
       handleClick();
@@ -21,9 +30,14 @@ export default ({ handleClick, children }) => {
   };
 
   return (
-    <button ref={_button} className="Button" onClick={_handleClick}>
-      {children}
-      <span ref={_span} />
+    <button
+      ref={buttonRef}
+      type="button"
+      className={`Button ${className}`}
+      onClick={handleButtonClick}
+    >
+      <span className="Button-label">{label}</span>
+      <span className="Button-ripple" ref={rippleRef} />
     </button>
   );
 };

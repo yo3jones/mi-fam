@@ -1,4 +1,4 @@
-#Logo {
+.Logo {
   width: 70px;
   height: 70px;
 }
@@ -13,7 +13,7 @@
 }
 
 #Logo-face-3 {
-  fill: rgb(28, 186, 127);
+  fill: #1cba7f;
 }
 
 #Logo-face-4 {

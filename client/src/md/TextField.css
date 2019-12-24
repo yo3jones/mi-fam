@@ -1,0 +1,61 @@
+.TextField {
+  color: white;
+}
+
+.TextField-input-wrapper {
+  position: relative;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: row;
+
+  width: 280px;
+  height: 56px;
+
+  border-bottom: 2px solid white;
+  padding-left: 12px;
+
+  background-color: #ffffff09;
+}
+
+.TextField-input {
+  font-size: 16pt;
+
+  flex-grow: 1;
+
+  padding-top: 12pt;
+  border: 0px;
+
+  background-color: transparent;
+
+  color: white;
+}
+
+.TextField-input:focus {
+  outline: none;
+}
+
+.TextField-heleper-text {
+  font-size: 12pt;
+}
+
+.TextField-label {
+  position: absolute;
+
+  top: 0px;
+  left: 12px;
+
+  vertical-align: middle;
+
+  transition: all .2s;
+}
+
+.TextField-label.condensed {
+  font-size: 12pt;
+}
+
+.TextField-label.prominent {
+  font-size: 16pt;
+
+  top: calc(50% - 12px);
+}

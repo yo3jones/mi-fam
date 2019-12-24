@@ -1,22 +1,17 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
 import Button from './Button';
 
 describe('Button', () => {
-  describe('handleClick', () => {
-    let spy;
+  let button;
 
+  describe('render', () => {
     beforeEach(() => {
-      spy = sinon.spy();
-
-      shallow(<Button handleClick={spy} />)
-        .find('.Button')
-        .simulate('click');
+      button = shallow(<Button label="foo" />);
     });
 
-    it('calls the onClick handler', () => {
-      expect(spy).toHaveBeenCalledOnce();
+    it('renders the button label', () => {
+      expect(button.find('.Button-label').text()).toEqual('foo');
     });
   });
 });

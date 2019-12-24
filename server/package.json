@@ -2,8 +2,9 @@
   "name": "mi-fam",
   "version": "1.0.0",
   "description": "My Family Organizer",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
+    "start": "node --require @babel/polyfill --require @babel/register src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,29 @@
   "bugs": {
     "url": "https://github.com/yo3jones/mi-fam/issues"
   },
-  "homepage": "https://github.com/yo3jones/mi-fam#readme"
+  "homepage": "https://github.com/yo3jones/mi-fam#readme",
+  "dependencies": {
+    "apollo-server-express": "^2.9.14",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "graphql": "^14.5.8",
+    "graphql-tools": "^4.0.6",
+    "mongoose": "^5.8.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.7.7",
+    "@babel/core": "^7.7.7",
+    "@babel/node": "^7.7.7",
+    "@babel/polyfill": "^7.7.0",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/runtime": "^7.7.7",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1"
+  }
 }
