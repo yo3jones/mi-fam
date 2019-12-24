@@ -1,3 +1,11 @@
-import 'fs';
+import { connect } from './models';
 
-console.log('hello world');
+const init = async () => {
+  await connect();
+};
+
+init()
+  .then(() => {
+    console.log('started');
+  })
+  .catch(err => console.log(err));

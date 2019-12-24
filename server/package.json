@@ -4,7 +4,7 @@
   "description": "My Family Organizer",
   "main": "src/index.js",
   "scripts": {
-    "start": "node --require @babel/polyfill --require @babel/register src/index.js",
+    "start": "nodemon -r @babel/polyfill -r @babel/register -r dotenv/config src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
