@@ -1,19 +1,21 @@
 import mongoose from 'mongoose';
-import user from './user';
+import userSchema from './user';
+import familySchema from './family';
 
-const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
+export default async ({ host, port, user, password, dbName }) => {
+  const url = `mongodb://${user}:${password}@${host}:${port}/${dbName}?authSource=admin`;
 
-export const User = mongoose.model('User', user);
-
-export const connect = async () => {
-  const instance = await mongoose.connect(
-    `mongodb://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}`,
-    {
-      useNewUrlParser: true,
-    }
-  );
-
-  instance.connection.useDb(DB_NAME);
+  const instance = await mongoose.connect(url, {
+    useNewUrlParser: true,
+  });
 
   return instance;
+};
+
+export const User = mongoose.model('User', userSchema);
+export const Family = mongoose.model('Family', familySchema);
+
+export const Models = {
+  User,
+  Family,
 };

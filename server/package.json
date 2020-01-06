@@ -4,8 +4,9 @@
   "description": "My Family Organizer",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon -r @babel/polyfill -r @babel/register -r dotenv/config src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon -r @babel/polyfill -r @babel/register -r dotenv/config index.js",
+    "lint": "eslint '**/*.js' --ignore-path .gitignore",
+    "test": "jest --watch --coverage"
   },
   "repository": {
     "type": "git",
@@ -17,13 +18,29 @@
     "url": "https://github.com/yo3jones/mi-fam/issues"
   },
   "homepage": "https://github.com/yo3jones/mi-fam#readme",
+  "jest": {
+    "roots": [
+      "<rootDir>/src",
+      "<rootDir>/test"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/test/setupTests.js"
+    ],
+    "testEnvironment": "node"
+  },
   "dependencies": {
+    "apollo-server": "^2.9.14",
     "apollo-server-express": "^2.9.14",
+    "bcrypt": "^3.0.7",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "graphql": "^14.5.8",
     "graphql-tools": "^4.0.6",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.8.3"
   },
   "devDependencies": {
@@ -33,12 +50,21 @@
     "@babel/polyfill": "^7.7.0",
     "@babel/preset-env": "^7.7.7",
     "@babel/runtime": "^7.7.7",
+    "apollo-cache-inmemory": "^1.6.5",
+    "apollo-client": "^2.6.8",
+    "apollo-link-http": "^1.5.16",
+    "apollo-server-testing": "^2.9.14",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-prettier": "^3.1.2",
+    "faker": "^4.1.0",
+    "jest": "^24.9.0",
+    "node-fetch": "^2.6.0",
     "nodemon": "^2.0.2",
-    "prettier": "^1.19.1"
+    "portfinder": "^1.0.25",
+    "prettier": "^1.19.1",
+    "require-all": "^3.0.0"
   }
 }

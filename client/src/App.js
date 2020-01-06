@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { MdDashboard, MdSettings } from 'react-icons/md';
+import { ApolloProvider } from '@apollo/react-hooks';
 import LoginPage from './LoginPage';
 import RailNavigation from './md/RailNavigation';
 import { withoutTitle as Logo } from './core/Logo';
+import { createClient } from './graphql';
 import './App.css';
+
+export const hooks = {
+  useRouteMatch,
+};
 
 const items = {
   overview: {
@@ -25,10 +31,13 @@ const items = {
 
 const defaultItem = items.overview;
 
+const loginClient = createClient();
+
 export default () => {
-  const hasSession = false;
+  const [hasSession, setHasSession] = useState(false);
+
   const [selectedItem] = Object.values(items)
-    .map(item => [item, useRouteMatch(item.route)])
+    .map(item => [item, hooks.useRouteMatch(item.route)])
     .find(([, match]) => match) || [defaultItem, null];
 
   const itemsCopy = {
@@ -45,6 +54,8 @@ export default () => {
       {selectedItem.render()}
     </div>
   ) : (
-    <LoginPage />
+    <ApolloProvider client={loginClient}>
+      <LoginPage onSuccess={() => setHasSession(true)} />
+    </ApolloProvider>
   );
 };

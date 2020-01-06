@@ -4,7 +4,7 @@ import './RailNavigation.css';
 
 const forceStyleRecalc = el => el.offsetHeight;
 
-const Item = ({ item }) => {
+export const Item = ({ item }) => {
   const { id, label, icon: Icon, route, selected } = item;
 
   const listItemRef = useRef(null);
@@ -14,11 +14,6 @@ const Item = ({ item }) => {
 
   useEffect(() => {
     const { current: listItem } = listItemRef;
-
-    // const _ok = 'something';
-    //
-    // console.log(_ok);
-
     forceStyleRecalc(listItem);
 
     if (animating) listItem.classList.add('animate');
@@ -46,7 +41,7 @@ const Item = ({ item }) => {
   );
 };
 
-export default ({ className = '', items = [] }) => {
+export default ({ className, items }) => {
   return (
     <ul className={`${className} RailNavigation`}>
       {items.map(item => (

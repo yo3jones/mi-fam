@@ -18,7 +18,7 @@
   background-color: #ffffff09;
 }
 
-.TextField-input {
+.TextField input {
   font-size: 16pt;
 
   flex-grow: 1;
@@ -31,7 +31,7 @@
   color: white;
 }
 
-.TextField-input:focus {
+.TextField input:focus {
   outline: none;
 }
 

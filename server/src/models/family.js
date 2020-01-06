@@ -4,17 +4,14 @@ export default new Schema({
   name: {
     type: String,
     required: true,
-  },
-  email: {
-    type: String,
-    required: true,
     index: true,
     unique: true,
   },
-  password: {
+  display: {
     type: String,
+    required: true,
   },
-  familyIds: {
+  userIds: {
     type: [Schema.Types.ObjectId],
   },
 });

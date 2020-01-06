@@ -6,8 +6,12 @@ describe('TextField', () => {
   let textField;
 
   describe('render', () => {
-    beforeAll(() => {
-      textField = shallow(<TextField label="foo" helpText="bar" value="baz" />);
+    beforeEach(() => {
+      textField = mount(
+        <TextField label="foo" helpText="bar">
+          <input type="text" value="bang" onChange={() => {}} />
+        </TextField>
+      );
     });
 
     it('renders the label', () => {
@@ -18,15 +22,6 @@ describe('TextField', () => {
       expect(textField.find('.TextField-helper-text').text()).toBe('bar');
     });
 
-    it('renders the vaue', () => {
-      expect(
-        textField
-          .find('.TextField-input')
-          .first()
-          .prop('value')
-      ).toBe('baz');
-    });
-
     it('renders the label condensed', () => {
       expect(textField.find('.TextField-label').hasClass('condensed')).toBe(
         true
@@ -35,8 +30,12 @@ describe('TextField', () => {
   });
 
   describe('No Value', () => {
-    beforeAll(() => {
-      textField = shallow(<TextField label="foo" />);
+    beforeEach(() => {
+      textField = shallow(
+        <TextField label="foo">
+          <input type="text" />
+        </TextField>
+      );
     });
 
     it('renders the label prominently', () => {
@@ -47,9 +46,13 @@ describe('TextField', () => {
   });
 
   describe('focused', () => {
-    beforeAll(() => {
-      textField = shallow(<TextField label="foo" />);
-      textField.find('.TextField-input').simulate('focus');
+    beforeEach(() => {
+      textField = mount(
+        <TextField label="foo">
+          <input type="text" />
+        </TextField>
+      );
+      textField.find('.TextField input').simulate('focus');
     });
 
     it('renders the label condensed', () => {
@@ -60,34 +63,20 @@ describe('TextField', () => {
   });
 
   describe('blur', () => {
-    beforeAll(() => {
-      textField = shallow(<TextField label="foo" />);
-      textField.find('.TextField-input').simulate('focus');
-      textField.find('.TextField-input').simulate('blur');
+    beforeEach(() => {
+      textField = mount(
+        <TextField label="foo">
+          <input type="text" />
+        </TextField>
+      );
+      textField.find('.TextField input').simulate('focus');
+      textField.find('.TextField input').simulate('blur');
     });
 
     it('renders the label prominently', () => {
       expect(textField.find('.TextField-label').hasClass('prominent')).toBe(
         true
       );
-    });
-  });
-
-  describe('change value', () => {
-    let spy;
-
-    beforeAll(async () => {
-      spy = jest.fn();
-
-      textField = mount(
-        <TextField label="foo" value="bar" type="password" handleChange={spy} />
-      );
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      textField.find('.TextField-input').simulate('change');
-    });
-
-    it('calls the handler with the value', () => {
-      expect(spy).toBeCalledWith(expect.objectContaining({ value: 'bar' }));
     });
   });
 });
