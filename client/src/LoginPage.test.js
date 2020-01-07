@@ -2,24 +2,26 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import LoginPage, { hooks } from './LoginPage';
-import { userLogin } from './graphql';
 
 describe('LoginPage', () => {
   let loginPage;
-  let useLazyQuery;
   let useLogin;
   let sandbox;
   let login;
   let onSuccess;
+  let form;
 
   beforeEach(() => {
     sandbox = sinon.createSandbox();
 
-    useLazyQuery = sandbox.stub(hooks, 'useLazyQuery');
     login = jest.fn();
-    useLazyQuery.withArgs(userLogin).returns([login, {}]);
 
-    useLogin = sandbox.stub(hooks, 'useLogin').returns([login, {}]);
+    useLogin = sandbox
+      .stub(hooks, 'useLogin')
+      .returns([
+        login,
+        { loading: true, requiresLogin: false, error: null, session: null },
+      ]);
 
     onSuccess = jest.fn();
 
@@ -30,63 +32,103 @@ describe('LoginPage', () => {
     sandbox.restore();
   });
 
-  describe('update username', () => {
-    beforeEach(() => {
-      loginPage
-        .find('.LoginPage-username-input')
-        .simulate('change', { currentTarget: { value: 'foo' } });
-    });
-
-    it('updates the username value', () => {
-      expect(loginPage.find('.LoginPage-username').prop('value')).toBe('foo');
+  describe('initial load', () => {
+    it('renders the login form', () => {
+      expect(loginPage.find('.LoginPage-form').length).toEqual(0);
     });
   });
 
-  describe('update password', () => {
+  describe('requiresLogin', () => {
     beforeEach(() => {
-      loginPage
-        .find('.LoginPage-password-input')
-        .simulate('change', { currentTarget: { value: 'bar' } });
+      useLogin.returns([
+        login,
+        {
+          loading: false,
+          requiresLogin: true,
+          error: null,
+          session: null,
+        },
+      ]);
+      loginPage.setProps({});
+      form = loginPage.find('.LoginPage-form');
     });
 
-    it('updates the password value', () => {
-      expect(loginPage.find('.LoginPage-password').prop('value')).toEqual(
-        'bar'
-      );
+    it('renders the login form', () => {
+      expect(form.length).toEqual(1);
+    });
+
+    it('sets loading to false', () => {
+      expect(form.prop('loading')).toBeFalsy();
+    });
+
+    it('sets a null error', () => {
+      expect(form.prop('error')).toBeFalsy();
+    });
+
+    describe('error', () => {
+      beforeEach(() => {
+        useLogin.returns([
+          login,
+          {
+            loading: false,
+            requiresLogin: true,
+            error: new Error(),
+            session: null,
+          },
+        ]);
+        loginPage.setProps({});
+        form = loginPage.find('.LoginPage-form');
+      });
+
+      it('sets loading to false', () => {
+        expect(form.prop('loading')).toBeFalsy();
+      });
+
+      it('sets a null error', () => {
+        expect(form.prop('error')).toBeTruthy();
+      });
     });
   });
 
   describe('login', () => {
     beforeEach(() => {
-      loginPage
-        .find('.LoginPage-username-input')
-        .simulate('change', { currentTarget: { value: 'foo' } });
-      loginPage
-        .find('.LoginPage-password-input')
-        .simulate('change', { currentTarget: { value: 'bar' } });
-
-      loginPage
-        .find('.LoginPage-login')
-        .props()
-        .handleClick();
+      useLogin.returns([
+        login,
+        {
+          loading: false,
+          requiresLogin: true,
+          error: null,
+          session: null,
+        },
+      ]);
+      loginPage.setProps({});
+      form = loginPage.find('.LoginPage-form');
+      form.prop('onLogin')({ username: 'foo', password: 'bar' });
     });
 
-    it('calls login', () => {
+    it('calls login with username and password', () => {
       expect(login).toBeCalledWith({
         variables: { username: 'foo', password: 'bar' },
       });
     });
-  });
 
-  describe('login success', () => {
-    beforeEach(() => {
-      useLogin.returns([login, { session: { foo: 'bar' } }]);
+    describe('success', () => {
+      beforeEach(() => {
+        useLogin.returns([
+          login,
+          {
+            loading: false,
+            requiresLogin: true,
+            error: null,
+            session: { is: 'session' },
+          },
+        ]);
+        loginPage.setProps({});
+      });
 
-      loginPage.setProps({});
-    });
-
-    it('calls onSuccess with data', () => {
-      expect(onSuccess).toBeCalledWith({ foo: 'bar' });
+      it('calls onSuccess with session', () => {
+        expect(onSuccess).toBeCalledWith({ is: 'session' });
+      });
     });
   });
 });

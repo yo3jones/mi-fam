@@ -1,0 +1,34 @@
+.LoginForm {
+  position: absolute;
+
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+
+  display: flex;
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.LoginForm-input-wrapper {
+  display:flex;
+  flex-direction: column;
+}
+
+.LoginForm-logo {
+  width: 300px;
+  height: 300px;
+}
+
+.LoginForm-username,
+.LoginForm-password,
+.Button.LoginForm-login {
+  margin-top: 20px;
+}
+
+.Button.LoginForm-login {
+  align-self: flex-end;
+}

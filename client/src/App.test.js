@@ -7,7 +7,7 @@ describe('App', () => {
   let app;
   let sandbox;
   let useRouteMatch;
-  let loginPage;
+  let loginForm;
 
   beforeEach(() => {
     sandbox = sinon.createSandbox();
@@ -17,7 +17,7 @@ describe('App', () => {
 
     app = shallow(<App />);
 
-    loginPage = app.find('LoginPage');
+    loginForm = app.find('LoginForm');
   });
 
   afterEach(() => {
@@ -25,14 +25,14 @@ describe('App', () => {
   });
 
   describe('Not logged in', () => {
-    it('renders the LoginPage', () => {
-      expect(loginPage).toBeTruthy();
+    it('renders the LoginForm', () => {
+      expect(loginForm).toBeTruthy();
     });
   });
 
   describe('Logged in', () => {
     beforeEach(() => {
-      loginPage.props().onSuccess();
+      loginForm.props().onSuccess();
     });
 
     describe('default page', () => {
