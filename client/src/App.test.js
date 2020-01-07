@@ -17,7 +17,7 @@ describe('App', () => {
 
     app = shallow(<App />);
 
-    loginForm = app.find('LoginForm');
+    loginForm = app.find('LoginPage');
   });
 
   afterEach(() => {
@@ -25,7 +25,7 @@ describe('App', () => {
   });
 
   describe('Not logged in', () => {
-    it('renders the LoginForm', () => {
+    it('renders the LoginPage', () => {
       expect(loginForm).toBeTruthy();
     });
   });
