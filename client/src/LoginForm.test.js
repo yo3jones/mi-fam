@@ -1,22 +1,14 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
 import LoginForm from './LoginForm';
 
 describe('LoginForm', () => {
   let loginForm;
-  let sandbox;
   let onLogin;
 
   beforeEach(() => {
-    sandbox = sinon.createSandbox();
-
     onLogin = jest.fn();
     loginForm = shallow(<LoginForm onLogin={onLogin} />);
-  });
-
-  afterEach(() => {
-    sandbox.restore();
   });
 
   describe('login', () => {
