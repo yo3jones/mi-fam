@@ -15,11 +15,7 @@ const LoginForm = ({ onLogin }) => {
       <Logo className="LoginForm-logo" />
 
       <div className="LoginForm-input-wrapper">
-        <TextField
-          className="LoginForm-username"
-          value={username}
-          label="Username"
-        >
+        <TextField className="LoginForm-username" label="Username">
           <input
             className="LoginForm-username-input"
             type="text"
@@ -30,7 +26,6 @@ const LoginForm = ({ onLogin }) => {
 
         <TextField
           className="LoginForm-password"
-          value={password}
           label="Password"
           type="password"
         >
